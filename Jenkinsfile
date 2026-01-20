@@ -52,7 +52,7 @@ pipeline{
                           def pom = readMavenPom file: 'pom.xml'
 
                              def nexusRepo = pom.version.endsWith('SNAPSHOT') ?
-                                  'java-snapshot' :
+                                  'java-snapshot1' :
                                    'java-release'
 
                             nexusArtifactUploader(
@@ -66,7 +66,7 @@ pipeline{
                                       ],
                                       credentialsId: 'nexus-auth',
                                       groupId: 'com.example',
-                                      nexusUrl: '3.111.29.158',
+                                      nexusUrl: '3.111.29.158:8081',
                                       nexusVersion: 'nexus3',
                                       protocol: 'http',
                                       repository: nexusRepo,
