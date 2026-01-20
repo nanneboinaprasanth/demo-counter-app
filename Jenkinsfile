@@ -1,4 +1,5 @@
 pipeline{
+    
     agent { label 'slavee1' }
     stages {
         stage('Git Checkout'){            
