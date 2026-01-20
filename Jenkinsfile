@@ -38,7 +38,6 @@ pipeline{
                    }
                     
                 }
-            }
             stage('Quality Gate Status'){                
                 steps{                 
                     script{                        
@@ -46,5 +45,5 @@ pipeline{
                     }
                 }
             }
-        }        
-}
+        }   
+      }
