@@ -31,7 +31,7 @@ pipeline{
             }
         }
         stage('Static Code Analysis') {
-    steps {
+              steps {
         withSonarQubeEnv('sonarqube-server') {
             sh 'mvn clean verify sonar:sonar'
                     }
@@ -79,4 +79,4 @@ pipeline{
                 }
              }
         }   
-      }
+       
