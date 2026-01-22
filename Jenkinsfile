@@ -77,6 +77,31 @@ pipeline{
                        
                     }
                 }
+
+
+            stage('docker as build'){
+                steps{
+                    script{
+                        sh 'docker image build -t $JOB_NAME:v1.$BUILD_ID .'
+                        sh 'docker image tag $JOB_NAME:v1.$BUILD_ID nprasanth41/$JOB_NAME:v1.$BUILD_ID'
+                        sh 'docker image tag $JOB_NAME:v1.$BUILD_ID nprasanth41/$JOB_NAME:latest'
+                    }
+                    }
+                }
+                stage('push image to docker registry'){
+                    steps{
+                        script{
+                            withCredentials([string(credentialsId: 'doker-auth', variable: 'docker-hubauth')]) {
+
+                            sh 'docker login -u nprasanth41 -p ${docker_hub}'
+                            sh 'docker image push nprasanth41/$JOB_NAME:v1.$BUILD_ID'
+                            sh 'docker image push nprasanth41/$JOB_NAME:latest'
+                            } 
+                        }
+                    }
+                }
+            }
              }
-        }   
+
+           
        
