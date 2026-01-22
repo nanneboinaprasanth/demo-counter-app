@@ -93,11 +93,11 @@ pipeline{
                                    def IMAGE_NAME = JOB_NAME.replaceAll('[^a-zA-Z0-9_.-]', '-').toLowerCase()
 
                                    withCredentials([string(credentialsId: 'docker-auth', variable: 'DOCKER_PASSWORD')]) {
-                                  sh '''
+                                  sh """
                                    echo "$DOCKER_PASSWORD" | docker login -u nprasanth41 --password-stdin
                                    docker push nprasanth41/${IMAGE_NAME}:v1.${BUILD_ID}
                                     docker push nprasanth41/${IMAGE_NAME}:latest
-                                      '''
+                                      """
                         }
                     }
                 }
