@@ -90,7 +90,6 @@ pipeline{
                 stage('push image to docker registry'){
                     steps{
                         script{
-                           script {
                                    def IMAGE_NAME = JOB_NAME.replaceAll('[^a-zA-Z0-9_.-]', '-').toLowerCase()
 
                                    withCredentials([string(credentialsId: 'docker-auth', variable: 'DOCKER_PASSWORD')]) {
@@ -104,6 +103,7 @@ pipeline{
                 }
             }
              }
+}
 
            
        
