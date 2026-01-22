@@ -94,7 +94,7 @@ pipeline{
 
                                    withCredentials([string(credentialsId: 'docker-auth', variable: 'DOCKER_PASSWORD')]) {
                                   sh """
-                                   echo ${DOCKER_PASSWORD} | docker login -u nprasanth41 --password-stdin
+                                   echo "$DOCKER_PASSWORD" | docker login -u nprasanth41 --password-stdin
                                    docker push nprasanth41/${IMAGE_NAME}:v1.${BUILD_ID}
                                     docker push nprasanth41/${IMAGE_NAME}:latest
                                       """
