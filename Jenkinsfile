@@ -91,7 +91,7 @@ pipeline{
                 stage('push image to docker registry'){
                     steps{
                         script{
-                            withCredentials([string(credentialsId: 'doker-auth', variable: 'docker-hubauth')]) {
+                            withCredentials([string(credentialsId: 'docker-auth', variable: 'docker-hubauth')]) {
 
                             sh 'docker login -u nprasanth41 -p ${docker_hub}'
                             sh 'docker image push nprasanth41/$JOB_NAME:v1.$BUILD_ID'
