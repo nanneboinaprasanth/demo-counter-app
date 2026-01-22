@@ -11,6 +11,6 @@ WORKDIR /app
 
 COPY --from=build /app/target/uber.jar /app/uber.jar
 
-EXPOSE 8080
+EXPOSE 8082
 CMD ["java","-jar","/app/uber.jar"]
 
