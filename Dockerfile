@@ -9,8 +9,7 @@ RUN mvn clean install -DskipTests
 FROM openjdk:11-jre-slim
 WORKDIR /app
 
-COPY --from=build /app/target/uber.jar /app/uber.jar
+COPY --from=build /app/target/Uber.jar /app/Uber.jar
 
 EXPOSE 8082
-CMD ["java","-jar","/app/uber.jar"]
-
+CMD ["java","-jar","/app/Uber.jar"]
