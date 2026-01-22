@@ -90,12 +90,15 @@ pipeline{
                 stage('push image to docker registry'){
                     steps{
                         script{
-                            withCredentials([string(credentialsId: 'docker-auth', variable: 'docker-hubauth')]) {
+                           script {
+                                   def IMAGE_NAME = JOB_NAME.replaceAll('[^a-zA-Z0-9_.-]', '-').toLowerCase()
 
-                            sh "docker login -u nprasanth41 -p ${docker_hub}"
-                            sh "docker image push nprasanth41/${JOB_NAME}:v1.${BUILD_ID}"
-                            sh "docker image push nprasanth41/${JOB_NAME}:latest"
-                            } 
+                                   withCredentials([string(credentialsId: 'docker-auth', variable: 'DOCKER_PASSWORD')]) {
+                                  sh """
+                                   echo ${DOCKER_PASSWORD} | docker login -u nprasanth41 --password-stdin
+                                   docker push nprasanth41/${IMAGE_NAME}:v1.${BUILD_ID}
+                                    docker push nprasanth41/${IMAGE_NAME}:latest
+                                      """
                         }
                     }
                 }
