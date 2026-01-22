@@ -76,14 +76,14 @@ pipeline{
                     }
                 }
 
-
             stage('docker as build'){
                 steps{
                     script{
+                           def IMAGE_NAME = JOB_NAME.replaceAll('[^a-zA-Z0-9_.-]', '-').toLowerCase()
 
-                        sh "docker build -t ${JOB_NAME}:v1.${BUILD_ID} ."
-                        sh "docker tag ${JOB_NAME}:v1.${BUILD_ID} nprasanth41/${JOB_NAME}:v1.${BUILD_ID}"
-                        sh "docker tag ${JOB_NAME}:v1.${BUILD_ID} nprasanth41/${JOB_NAME}:latest"
+                         sh "docker build -t ${IMAGE_NAME}:v1.${BUILD_ID} ."
+                         sh "docker tag ${IMAGE_NAME}:v1.${BUILD_ID} nprasanth41/${IMAGE_NAME}:v1.${BUILD_ID}"
+                         sh "docker tag ${IMAGE_NAME}:v1.${BUILD_ID} nprasanth41/${IMAGE_NAME}:latest"
                     }
                     }
                 }
