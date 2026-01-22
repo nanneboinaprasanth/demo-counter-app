@@ -73,8 +73,6 @@ pipeline{
                                       version: pom.version
     )
 }
-
-                       
                     }
                 }
 
@@ -82,6 +80,7 @@ pipeline{
             stage('docker as build'){
                 steps{
                     script{
+
                         sh "docker build -t ${JOB_NAME}:v1.${BUILD_ID} ."
                         sh "docker tag ${JOB_NAME}:v1.${BUILD_ID} nprasanth41/${JOB_NAME}:v1.${BUILD_ID}"
                         sh "docker tag ${JOB_NAME}:v1.${BUILD_ID} nprasanth41/${JOB_NAME}:latest"
@@ -93,9 +92,9 @@ pipeline{
                         script{
                             withCredentials([string(credentialsId: 'docker-auth', variable: 'docker-hubauth')]) {
 
-                            sh 'docker login -u nprasanth41 -p ${docker_hub}'
-                            sh 'docker image push nprasanth41/${JOB_NAME}:v1.${BUILD_ID}'
-                            sh 'docker image push nprasanth41/${JOB_NAME}:latest'
+                            sh "docker login -u nprasanth41 -p ${docker_hub}"
+                            sh "docker image push nprasanth41/${JOB_NAME}:v1.${BUILD_ID}"
+                            sh "docker image push nprasanth41/${JOB_NAME}:latest"
                             } 
                         }
                     }
