@@ -102,6 +102,20 @@ pipeline{
                     }
                 }
             }
+            stage('Deploy to EKS'){
+                steps{
+                    script{
+                        withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                            sh '''
+                            set -e
+                            aws eks update-kubeconfig --region eu-north-1 --name terraform-eks-cluster
+                            kubectl set image deployment/demo-counter-app demo-counter-app=nprasanth41/${JOB_NAME}:v1.${BUILD_ID} -n default
+                            kubectl rollout status deployment/demo-counter-app -n default
+                            '''
+                        }
+                    }
+                }
+            }
              }
 }
 
