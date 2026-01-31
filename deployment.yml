@@ -1,23 +1,23 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata: 
-         name: mydeployment
-   spec:
-        replica: 2
-        selectors:
-        matchLabels:
-                    app: myspringbootapp
-        template:
-            metadata:
-                     lables:
-                            app:myspringboot
-   spec:
+   name: mydeployment
+spec:
+   replica: 2
+   selector:
+      matchLabels: 
+          app: myspringbootapp
+   template:
+     metadata:
+       lables:
+         app:myspringboot
+     spec:
         containers:
-                  -name: containername
-                  image: 
-        imagepullpoilcy: Always
-        ports:
-          -containerport: 9099
+         - name: javacontainer
+           image: nprasanth41/java_application:latest
+           imagepullpoilcy: Always
+           ports:
+             -containerport: 9099
 
           
 
